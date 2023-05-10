@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/drum.css">
+  <title>JS Drum Kit</title>
+</head>
+
+<body>
+  <div class="keys">
+    <div data-key="65" class="key">
+      <div class="kbd"><kbd>A</kbd>
+        <span class="sound">Clap</span>
+      </div>
+    </div>
+    <div data-key="83" class="key">
+      <div class="kbd"><kbd>S</kbd>
+        <span class="sound">Slam</span>
+      </div>
+    </div>
+    <div data-key="68" class="key">
+      <div class="kbd"><kbd>D</kbd>
+        <span class="sound">Kick</span>
+      </div>
+    </div>
+    <div data-key="70" class="key">
+      <div class="kbd"><kbd>F</kbd>
+        <span class="sound">Tom</span>
+      </div>
+    </div>
+    <div data-key="71" class="key">
+      <div class="kbd"><kbd>G</kbd>
+        <span class="sound">Snare</span>
+      </div>
+    </div>
+    <div data-key="72" class="key">
+      <div class="kbd"><kbd>H</kbd>
+        <span class="sound">Ting</span>
+      </div>
+    </div>
+    <div data-key="74" class="key">
+      <div class="kbd"><kbd>J</kbd>
+        <span class="sound">Kling</span>
+      </div>
+    </div>
+    <div data-key="75" class="key">
+      <div class="kbd"><kbd>K</kbd>
+        <span class="sound">Tabla</span>
+      </div>
+    </div>
+    <div data-key="76" class="key">
+      <div class="kbd"><kbd>L</kbd>
+        <span class="sound">Clamp</span>
+      </div>
+    </div>
+  </div>
+  <audio data-key="65" src="./Resources/acoustic_snare.wav"></audio>
+  <audio data-key="83" src="./Resources/707-ohh.wav"></audio>
+  <audio data-key="68" src="./Resources/707-clap.wav"></audio>
+  <audio data-key="70" src="./Resources/ambient_kick.wav"></audio>
+  <audio data-key="71" src="./Resources/bright-cabasa.wav"></audio>
+  <audio data-key="72" src="./Resources/badcow.wav"></audio>
+  <audio data-key="74" src="./Resources/hardsleigh.wav"></audio>
+  <audio data-key="75" src="./Resources/tabla5.wav"></audio>
+  <audio data-key="76" src="./Resources/TIMBALES_3.WAV"></audio>
+</body>
+
+<script>
+  window.addEventListener('keydown', function (e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    // console.log(audio);
+    if (!audio) return;
+    audio.currentTime = 0;  //Rewind to start in repetative button press.
+    audio.play();
+    // console.log(key);
+    key.classList.add("playing");
+    // key.classList.remove("playing");
+
+    function removeTransition(e) {
+      if (e.propertyName !== 'transform') return;
+      console.log(e.propertyName);
+      this.classList.remove('playing');
+    }
+    const keys = document.querySelectorAll('.key')
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  });
+</script>
+
+</html>
