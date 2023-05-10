@@ -1,0 +1,4 @@
+[[redirects]]
+from = "/*";
+to = "/drum.html"
+status = 200
